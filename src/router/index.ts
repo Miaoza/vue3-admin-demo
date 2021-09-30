@@ -5,6 +5,7 @@ import Home from '@/views/home'
 import Login from '@/views/login'
 import NotFound from '@/views/404'
 import NoAuth from '@/views/403'
+import users from './user'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -16,7 +17,8 @@ const routes: Array<RouteRecordRaw> = [
         path: '/home',
         name: 'home',
         component: Home
-      }
+      },
+      ...users
     ]
   },
   {
@@ -55,6 +57,8 @@ router.beforeEach((to, from, next) => {
   const token = getStorage('token')
   if (to.name !== 'login' && !token) {
     next({ name: 'login' })
+  } else if (to.path === '/') {
+    next({ name: 'home' })
   } else {
     next()
   }

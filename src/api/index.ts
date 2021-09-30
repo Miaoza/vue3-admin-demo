@@ -5,6 +5,7 @@ import axios, {
   AxiosResponse
 } from 'axios'
 // import { ElMessage } from 'element-plus'
+import { getStorage } from '@/utils/storage'
 import { Map } from '@/interfaces'
 
 axios.defaults.baseURL = '/api'
@@ -12,6 +13,10 @@ axios.defaults.baseURL = '/api'
 // 请求拦截器
 axios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
+    const token = getStorage('token') || ''
+    if (token) {
+      config.headers.common.authorization = token
+    }
     return config
   },
   (error) => {

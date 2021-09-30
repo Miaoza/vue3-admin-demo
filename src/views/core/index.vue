@@ -4,7 +4,7 @@
     <Header />
     <el-container direction="horizontal">
       <Nav />
-      <el-main>
+      <el-main class="core-main">
         <keep-alive v-if="$route.meta.cache">
           <router-view />
         </keep-alive>

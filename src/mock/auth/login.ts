@@ -1,5 +1,5 @@
 /******************
- * 基础 - 登录 - mock
+ * 权限 - mock
  *****************/
 
 type Map = {
@@ -15,8 +15,9 @@ type ResponseType = {
 
 export default {
   /**
-   * 基础 - 登录
-   * @returns：Promise {<pending>}
+   * 登录
+   * @param {Object} option
+   * @returns {Promise} {<pending>}
    **/
   'post|/api/login': (option: Map): ResponseType => {
     // const { phone, pwd } = JSON.parse(option.body || JSON.stringify())
@@ -38,19 +39,31 @@ export default {
       }
     }
   },
+  /**
+   * 查询登录用户信息
+   * @param {Object} option
+   * @returns {Promise} {<pending>}
+   **/
   'get|/api/me': (option: Map): ResponseType => {
-    console.log(option)
-    return {
-      code: 0,
-      msg: '成功',
-      data: {
-        id: 1,
-        username: '喵砸',
-        phone: '13666666666',
-        avatarUrl:
-          'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
-        remark: '',
-        createAt: '2021-09-26 09:09:09'
+    const token = option.url.split('token')[1]
+    if (token && token.length > 1) {
+      return {
+        code: 0,
+        msg: '成功',
+        data: {
+          id: 1,
+          username: '喵砸',
+          phone: '13666666666',
+          avatarUrl:
+            'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+          remark: '',
+          createAt: '2021-09-26 09:09:09'
+        }
+      }
+    } else {
+      return {
+        code: -1,
+        msg: '未登录'
       }
     }
   }

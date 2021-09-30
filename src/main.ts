@@ -5,6 +5,7 @@ import 'element-plus/dist/index.css'
 import App from './App.vue'
 import router from './router'
 import store, { key } from './store'
+import { PAGESIZE, PAGELAYOUT } from '@/constants'
 // 导入mock
 require('./mock')
 
@@ -13,3 +14,7 @@ app.use(ElementPlus)
 app.use(store, key)
 app.use(router)
 app.mount('#app')
+
+// 定义全局变量
+app.config.globalProperties.pageSizes = PAGESIZE
+app.config.globalProperties.pageLayout = PAGELAYOUT

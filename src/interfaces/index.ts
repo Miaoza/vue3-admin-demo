@@ -1,5 +1,5 @@
 export type Map = {
-  [key: string]: unknown
+  [key: string]: any
 }
 
 export interface ResponseType {

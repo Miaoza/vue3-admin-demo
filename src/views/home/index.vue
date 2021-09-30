@@ -1,6 +1,5 @@
 <template>
   <section class="home">
-    <!-- 自定义快捷入口 -->
     <section class="quick-entry"></section>
 
     <!-- <section></section> -->
