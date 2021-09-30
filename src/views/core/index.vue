@@ -19,8 +19,11 @@
 
 <style lang="scss" scoped>
 .core-wrap {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background: $page-bg;
+  .core-main {
+    position: relative;
+  }
 }
 </style>

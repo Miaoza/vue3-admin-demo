@@ -10,6 +10,9 @@ const Nav = defineComponent({
       const bodyWidth = document.body.clientWidth
       return bodyWidth < 1380
     },
+    defaultActive() {
+      return this.$route.path
+    },
     menus() {
       return [...MENUS]
     }

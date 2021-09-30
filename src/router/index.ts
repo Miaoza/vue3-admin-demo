@@ -16,7 +16,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/home',
         name: 'home',
-        component: Home
+        component: Home,
+        meta: {
+          title: '工作台'
+        }
       },
       ...users
     ]
@@ -29,12 +32,18 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/404',
     name: 'not-found',
-    component: NotFound
+    component: NotFound,
+    meta: {
+      title: '工作台'
+    }
   },
   {
     path: '/403',
     name: 'no-auth',
-    component: NoAuth
+    component: NoAuth,
+    meta: {
+      title: '工作台'
+    }
   }
   // {
   //   path: '/about',

@@ -14,7 +14,7 @@ import { Map } from '@/interfaces'
       type: Function,
       default: (filter: Map) => ({ ...filter })
     },
-    promiseRequest: Promise,
+    promiseRequest: [Promise, Function],
     // promiseExport: [Promise, Array, undefined],
     formateTableData: {
       type: Function,
@@ -28,11 +28,9 @@ import { Map } from '@/interfaces'
       type: Array,
       default: () => []
     }
-    // loading: Boolean
-    // data: {
-    //   type: Array,
-    //   default: () => []
-    // }
+  },
+  mounted() {
+    this.getTableData()
   }
 })
 export default class DetailTable extends Vue {

@@ -1,7 +1,11 @@
 import { Options, Vue } from 'vue-class-component'
 import { useStore } from '@/store'
+import Tabs from '@/layout/tabs'
 
 @Options({
+  components: {
+    Tabs
+  },
   computed: {
     user() {
       const me = this.$store.state.auth.me || {}

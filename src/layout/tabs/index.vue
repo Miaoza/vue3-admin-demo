@@ -1,6 +1,71 @@
 <!-- 标签页 -->
 <template>
-  <section></section>
+  <section class="tabs-wrap">
+    <div
+      v-for="tab in tabs"
+      :class="['tab-item', tab.path === currentTab.path && 'active']"
+      :key="tab.path"
+      @click="handleToggle(tab)"
+    >
+      <img v-if="tab.icon" class="icon" :src="tab.icon" />
+      <span class="title">{{ tab.title }}</span>
+      <div v-if="tab.path !== '/home'">
+        <i
+          class="el-icon-close"
+          v-show="tab.path !== currentTab.path"
+          @click="handleClose(tab)"
+        ></i>
+        <i
+          class="el-icon-circle-close"
+          v-show="tab.path === currentTab.path"
+          @click="handleClose(tab)"
+        ></i>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script lang="ts" src="./tabs.ts"></script>
+
+<style lang="scss" scoped>
+.tabs-wrap {
+  position: absolute;
+  left: 62px;
+  right: 100px;
+  // top: 0;
+  bottom: -3px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  .tab-item {
+    box-sizing: border-box;
+    padding: 0 $mini-font-size;
+    width: 136px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    // border-radius: $mini-border-radius;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom: 0;
+    cursor: default;
+
+    &.active {
+      background: #edf5fe;
+    }
+
+    .title {
+      width: 90px;
+    }
+
+    .el-icon-close,
+    .el-icon-circle-close {
+      cursor: pointer;
+      color: $info-color;
+    }
+  }
+}
+</style>

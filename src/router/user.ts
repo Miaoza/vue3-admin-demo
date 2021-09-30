@@ -4,6 +4,10 @@ export default [
   {
     path: '/user/list',
     name: 'user/list',
-    component: User
+    component: User,
+    meta: {
+      title: '用户列表',
+      icon: ''
+    }
   }
 ] as any[]

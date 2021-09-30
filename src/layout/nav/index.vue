@@ -1,6 +1,11 @@
 <template>
   <el-aside class="nav-wrap" :width="isCollapse ? '64px' : '320px'">
-    <el-menu default-active="/home" unique-opened router :collapse="isCollapse">
+    <el-menu
+      :default-active="defaultActive"
+      unique-opened
+      router
+      :collapse="isCollapse"
+    >
       <template v-for="item in menus" :key="item.path">
         <template v-if="item.children && item.children.length">
           <SubMenuItem :subItem="item" />

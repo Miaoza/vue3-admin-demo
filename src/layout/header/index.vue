@@ -24,6 +24,7 @@
         </template>
       </el-dropdown>
     </div>
+    <Tabs />
   </el-header>
 </template>
 
@@ -36,6 +37,7 @@
   background: #fff;
   display: flex;
   align-items: center;
+  position: relative;
 
   .logo-wrap {
     width: 50px;
