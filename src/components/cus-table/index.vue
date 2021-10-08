@@ -2,6 +2,7 @@
   <el-table
     ref="tableRef"
     :data="tableData"
+    :stripe="stripe"
     style="width: 100%"
     :empty-text="emptyText"
     @selection-change="handleSelectionChange"

@@ -12,6 +12,10 @@ import TableItem from './table-item'
   },
   props: {
     loading: Boolean,
+    stripe: {
+      type: Boolean,
+      default: true
+    },
     emptyText: {
       type: String,
       default: '暂无数据'

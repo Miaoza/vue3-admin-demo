@@ -1,11 +1,18 @@
 <!-- 标签页 -->
 <template>
-  <section class="tabs-wrap">
+  <section class="tabs-wrap" v-click-outside="handleOutSide">
     <div
-      v-for="tab in tabs"
+      :class="['tab-item', '/home' === currentTab.path && 'active']"
+      @click.stop="handleToggle({ path: '/home', title: '工作台' })"
+    >
+      <span class="title">工作台</span>
+    </div>
+    <div
+      v-for="(tab, index) in tabs"
       :class="['tab-item', tab.path === currentTab.path && 'active']"
       :key="tab.path"
-      @click="handleToggle(tab)"
+      @click.stop="handleToggle(tab)"
+      @contextmenu.prevent="handleContextmenu(index)"
     >
       <img v-if="tab.icon" class="icon" :src="tab.icon" />
       <span class="title">{{ tab.title }}</span>
@@ -13,15 +20,21 @@
         <i
           class="el-icon-close"
           v-show="tab.path !== currentTab.path"
-          @click="handleClose(tab)"
+          @click.stop="handleClose(tab)"
         ></i>
         <i
           class="el-icon-circle-close"
           v-show="tab.path === currentTab.path"
-          @click="handleClose(tab)"
+          @click.stop="handleClose(tab)"
         ></i>
       </div>
     </div>
+    <Contextmenu
+      :show="show"
+      :tabIndex="tabIndex + 1"
+      :len="tabs.length"
+      @close="handleCloseTab"
+    />
   </section>
 </template>
 
@@ -38,6 +51,7 @@
   display: flex;
   align-items: center;
   .tab-item {
+    position: relative;
     box-sizing: border-box;
     padding: 0 $mini-font-size;
     width: 136px;
