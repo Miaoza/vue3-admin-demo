@@ -10,7 +10,7 @@
     <div
       v-for="(tab, index) in tabs"
       :class="['tab-item', tab.path === currentTab.path && 'active']"
-      :key="tab.path"
+      :key="`${tab.path}-${index}`"
       @click.stop="handleToggle(tab)"
       @contextmenu.prevent="handleContextmenu(index)"
     >
@@ -32,7 +32,6 @@
     <Contextmenu
       :show="show"
       :tabIndex="tabIndex + 1"
-      :len="tabs.length"
       @close="handleCloseTab"
     />
   </section>

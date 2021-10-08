@@ -42,7 +42,16 @@ export const mutations = {
     store.tabs.splice(index, 1)
     const nextIndex = index < store.tabs.length ? index : index - 1
     const currentTab = store.tabs[nextIndex > -1 ? nextIndex : 0] || HOMETAB
-    mutations.setCurrentTab(currentTab)
+    store.currentTab.path === tab.path && mutations.setCurrentTab(currentTab)
+  },
+  reduceOther(tab: Map): void {
+    store.tabs = [tab]
+    mutations.setCurrentTab(tab)
+  },
+  reduceRight(tab: Map, index: number): void {
+    mutations.setCurrentTab(tab)
+    const len = store.tabs.length
+    index < len - 1 && store.tabs.splice(index + 1, len - (index + 1))
   },
   getCurrentTab(): Map {
     return store.currentTab

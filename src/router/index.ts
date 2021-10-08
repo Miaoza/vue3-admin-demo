@@ -6,6 +6,7 @@ import Login from '@/views/login'
 import NotFound from '@/views/404'
 import NoAuth from '@/views/403'
 import users from './user'
+import sets from './set'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -21,7 +22,8 @@ const routes: Array<RouteRecordRaw> = [
           title: '工作台'
         }
       },
-      ...users
+      ...users,
+      ...sets
     ]
   },
   {

@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts">
+import { mutations } from './store'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -30,13 +31,18 @@ export default defineComponent({
     }
   },
   computed: {
+    tabs() {
+      return mutations.getTabs()
+    },
+    menuItems() {
+      return this.tabs.length < 2
+        ? ['关闭', '全部关闭']
+        : this.tabIndex === this.tabs.length
+        ? ['关闭', '关闭其他', '全部关闭']
+        : ['关闭', '关闭右侧', '关闭其他', '全部关闭']
+    },
     left() {
       return this.tabIndex < 0 ? 0 : this.tabIndex * 136
-    }
-  },
-  data() {
-    return {
-      menuItems: ['关闭', '关闭右侧', '关闭其他', '全部关闭']
     }
   },
   methods: {
@@ -54,11 +60,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .tabs-contextmenu {
   position: absolute;
-  // width: 200px;
   top: 32px;
-  // left: -1px;
   background: $module-bg;
-  // border-radius: $normal-border-radius;
   border-bottom-left-radius: $normal-border-radius;
   border-bottom-right-radius: $normal-border-radius;
   box-shadow: 2px 2px 12px #f0f0f0;

@@ -43,7 +43,6 @@ class Tabs extends Vue {
   show = false
   tabIndex = -1
   mounted(): void {
-    console.log('onMounted::::::>>>>')
     const path = this.$route.path
     this.tabs.every((tab: Map) => tab.path !== path) &&
       path !== '/home' &&
@@ -81,8 +80,8 @@ class Tabs extends Vue {
     console.log(this.currentTab)
     this.$router.push({
       path: this.currentTab.path,
-      params: this.currentTab.params,
-      query: this.currentTab.query
+      params: this.currentTab.params || {},
+      query: this.currentTab.query || {}
     })
   }
   /**
@@ -104,14 +103,22 @@ class Tabs extends Vue {
   handleOutSide(): void {
     this.handleCloseMenu()
   }
-  handleCloseTab(context: string): void {
+  /**
+   * 右键菜单关闭标签
+   * @param {String} context
+   */
+  async handleCloseTab(context: string): Promise<void> {
     switch (context) {
       case '关闭':
         this.handleClose(this.tabs[this.tabIndex])
         break
       case '关闭其他':
+        mutations.reduceOther(this.tabs[this.tabIndex])
         break
       case '关闭右侧':
+        mutations.reduceRight(this.tabs[this.tabIndex], this.tabIndex)
+        await this.$nextTick
+        this.$router.push({ path: this.currentTab.path })
         break
       case '全部关闭':
         mutations.clearTabs()
