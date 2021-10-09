@@ -7,7 +7,8 @@ export default [
     attrs: {
       placeholder: '请输入用户名',
       required: true
-    }
+    },
+    defaultValue: ''
   },
   {
     type: 'date',
@@ -22,7 +23,8 @@ export default [
         return time.getTime() > Date.now()
       },
       required: true
-    }
+    },
+    defaultValue: ''
   },
   {
     type: 'select',
@@ -37,6 +39,7 @@ export default [
       placeholder: '请选择性别',
       clearable: true,
       required: true
-    }
+    },
+    defaultValue: ''
   }
 ]

@@ -13,12 +13,12 @@ export function getUsers(params: Map): Promise<any> {
   })
 }
 
-// /**
-//  * 查询我的快捷入口
-//  * @returns {Promise}
-//  */
-// export function getMyQuickEntries(): Promise<any> {
-//   return request('/quick-entries/me', {
-//     method: 'get'
-//   })
-// }
+/**
+ * 查询指定用户
+ * @returns {Promise}
+ */
+export function getUserById(id: number): Promise<any> {
+  return request(`/users/${id}`, {
+    method: 'get'
+  })
+}

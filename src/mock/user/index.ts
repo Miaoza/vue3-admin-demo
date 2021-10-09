@@ -54,7 +54,7 @@ export default {
    * 基础 - 我的快捷入口列表
    * @returns {Promise} {<pending>}
    **/
-  'get|/api/public/quick-entries/me': (option: Map): ResponseType => {
+  'get|/api/users/1': (option: Map): ResponseType => {
     // const body = JSON.parse(option.body || JSON.stringify({}))
     console.log(option)
     if (option) {
@@ -62,8 +62,10 @@ export default {
         code: 0,
         msg: 'success',
         data: {
-          total: 5,
-          list: []
+          id: 1,
+          username: 'testuser1',
+          gender: '男',
+          birth: '2001-09-17'
         }
       }
     } else {
