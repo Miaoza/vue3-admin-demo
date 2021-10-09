@@ -105,7 +105,11 @@
               v-bind="item.attrs || {}"
               @change="handleChange"
             ></el-input>
-            <slot v-if="item.type === 'slot'" :name="item.prop"></slot>
+            <slot
+              v-if="item.type === 'slot'"
+              :name="item.slotname"
+              :form="form"
+            ></slot>
           </el-form-item>
         </el-col>
       </el-row>

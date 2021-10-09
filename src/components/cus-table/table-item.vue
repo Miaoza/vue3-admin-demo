@@ -7,7 +7,7 @@
     </template>
     <template v-if="!hasChildren" #default="props">
       <div v-if="column.type === 'slot'">
-        <slot :name="column.slotName" :row="props.row"></slot>
+        <slot :name="column.slotname" :row="props.row"></slot>
       </div>
       <span v-else>{{ props.row[column.prop] }}</span>
     </template>

@@ -7,7 +7,11 @@
     :empty-text="emptyText"
     @selection-change="handleSelectionChange"
   >
-    <TableItem v-for="item in columns" :key="item.prop" :column="item" />
+    <TableItem v-for="item in columns" :key="item.prop" :column="item">
+      <template v-if="item.type === 'slot'" v-slot:[item.slotname]="{ row }">
+        <slot :name="item.slotname" :row="row"></slot>
+      </template>
+    </TableItem>
   </el-table>
 </template>
 

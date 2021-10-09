@@ -1,4 +1,5 @@
 import User from '@/views/user'
+import UserForm from '@/views/user/user-form'
 
 export default [
   {
@@ -11,3 +12,12 @@ export default [
     }
   }
 ] as any[]
+
+export const userPageRouter: any[] = [
+  {
+    path: '/user/form/:id',
+    name: 'user/form',
+    component: UserForm,
+    meta: {}
+  }
+]

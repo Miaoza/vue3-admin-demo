@@ -16,19 +16,21 @@ import Contextmenu from './contextmenu'
     },
     tabs() {
       const tabs = mutations.getTabs()
-      console.log(tabs)
       return tabs
     }
   },
   watch: {
     '$route.path': function (path) {
+      const title = this.$route.meta.title
       if (
         this.tabs.every((tab: Map) => tab.path !== path) &&
-        path !== '/home'
+        path !== '/home' &&
+        title
       ) {
         mutations.addTab(this.$route)
       }
       path !== '/' &&
+        title &&
         mutations.setCurrentTab({
           path: path,
           title: this.$route.meta.title,
@@ -59,7 +61,6 @@ class Tabs extends Vue {
    * @param {Object} tab
    */
   handleToggle(tab: Map): void {
-    console.log('2333::::>', tab)
     if (tab.path && tab.path !== this.$route.path) {
       this.show && this.handleCloseMenu()
       this.$router.push({

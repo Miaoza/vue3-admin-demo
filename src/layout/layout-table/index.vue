@@ -5,7 +5,20 @@
       <CusFilter :filterItems="filterItems" @search="handleSearch" />
     </header>
     <section class="detail-table-body">
-      <CusTable :loading="loading" :columns="columns" :data="tableData" />
+      <div class="sub-header">
+        <el-button type="primary" v-if="showAdd" @click="handleAdd">
+          {{ addBtnText }}
+        </el-button>
+      </div>
+      <CusTable :loading="loading" :columns="columns" :data="tableData">
+        <template
+          v-for="slotItem in slotColumns"
+          :key="slotItem.slotname"
+          v-slot:[slotItem.slotname]="{ row }"
+        >
+          <slot :name="slotItem.slotname" :row="row"> </slot>
+        </template>
+      </CusTable>
       <el-pagination
         background
         v-model:currentPage="currentPage"
@@ -36,6 +49,10 @@
   }
 
   .detail-table-body {
+    .sub-header {
+      padding: 4px 0;
+      text-align: right;
+    }
     .el-pagination {
       margin-top: $gap;
       text-align: right;

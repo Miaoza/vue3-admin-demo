@@ -5,6 +5,8 @@ export const columns = [
     width: 100
   },
   {
+    type: 'slot',
+    slotname: 'username',
     label: '用户名',
     prop: 'username',
     'min-width': 120

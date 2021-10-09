@@ -5,7 +5,7 @@ import Home from '@/views/home'
 import Login from '@/views/login'
 import NotFound from '@/views/404'
 import NoAuth from '@/views/403'
-import users from './user'
+import users, { userPageRouter } from './user'
 import sets from './set'
 
 const routes: Array<RouteRecordRaw> = [
@@ -26,6 +26,7 @@ const routes: Array<RouteRecordRaw> = [
       ...sets
     ]
   },
+  ...userPageRouter,
   {
     path: '/login',
     name: 'login',

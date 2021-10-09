@@ -10,6 +10,11 @@ import { Map } from '@/interfaces'
   },
   props: {
     pseudoPaging: Boolean,
+    showAdd: Boolean,
+    addBtnText: {
+      type: String,
+      default: '新增'
+    },
     formateParam: {
       type: Function,
       default: (filter: Map) => ({ ...filter })
@@ -29,6 +34,13 @@ import { Map } from '@/interfaces'
       default: () => []
     }
   },
+  computed: {
+    slotColumns() {
+      const c = this.columns.filter((col: Map) => col.type === 'slot')
+      console.log('2333::::>>>', c)
+      return c
+    }
+  },
   mounted() {
     this.getTableData()
   }
@@ -45,6 +57,14 @@ export default class DetailTable extends Vue {
   filter = {}
   tableData = []
   loading = false
+
+  /**
+   * 新增
+   */
+  handleAdd(): void {
+    this.$emit('add')
+  }
+
   async getTableData(): Promise<void> {
     this.loading = true
     try {
