@@ -1,10 +1,15 @@
 import { defineComponent } from 'vue'
 import { Map } from '@/interfaces'
+// import { isEmptyObject } from '@/utils'
 
 const CusFilter = defineComponent({
   // 已启用类型推断
   components: {},
   props: {
+    value: {
+      type: Object,
+      default: () => ({})
+    },
     filterItems: {
       type: Array,
       default: () => []
@@ -16,11 +21,15 @@ const CusFilter = defineComponent({
       filter: {}
     }
   },
+  mounted() {
+    this.init()
+  },
   methods: {
     /**
      * 初始化筛选项
      */
     init(): void {
+      console.log('2333', this.value)
       this.filter = this.filterItems.reduce((pre: Map, cur: any): Map => {
         switch (cur.type) {
           case 'select':
@@ -43,6 +52,13 @@ const CusFilter = defineComponent({
         }
         return pre
       }, {})
+      this.$emit('update:value', this.filter)
+    },
+    /**
+     * 筛选项选中值改变
+     */
+    handleChange(): void {
+      this.$emit('update:value', this.filter)
     },
     /**
      * 搜索
@@ -55,7 +71,7 @@ const CusFilter = defineComponent({
      */
     handleReset(): void {
       this.init()
-      this.$emit('search', this.filter)
+      this.handleSearch()
     }
   }
 })

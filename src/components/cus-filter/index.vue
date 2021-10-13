@@ -10,6 +10,7 @@
         :disabled="item.disabled"
         :clearable="item.clearable"
         :placeholder="item.placeholder || '请输入'"
+        @change="handleChange"
       />
       <el-select
         v-if="item.type === 'select'"
@@ -21,6 +22,7 @@
         :filterable="item.filterable"
         :placeholder="item.placeholder || '请选择'"
         :popper-append-to-body="false"
+        @change="handleChange"
       >
         <el-option
           v-for="opt in item.options"
@@ -41,6 +43,7 @@
         :filterable="item.filterable"
         :placeholder="item.placeholder || '请选择'"
         :popper-append-to-body="false"
+        @change="handleChange"
       ></el-cascader>
       <el-date-picker
         v-if="item.type === 'date'"
@@ -54,6 +57,7 @@
         :placeholder="item.placeholder || '请选择日期'"
         :disabledDate="item.disabledDate"
         :popper-append-to-body="false"
+        @change="handleChange"
       >
       </el-date-picker>
       <el-date-picker
@@ -71,6 +75,7 @@
         :disabledDate="item.disabledDate"
         unlink-panels
         :popper-append-to-body="false"
+        @change="handleChange"
       >
       </el-date-picker>
     </div>

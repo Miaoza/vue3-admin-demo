@@ -1,6 +1,6 @@
 <!-- 柱状图模块 -->
 <template>
-  <section class="layout-bar-wrap">
+  <section class="layout-line-wrap">
     <el-row>
       <el-col :span="8" class="title">{{ title }}</el-col>
       <el-col :span="16">
@@ -66,10 +66,10 @@
   </section>
 </template>
 
-<script lang="ts" src="./bar.ts"></script>
+<script lang="ts" src="./line.ts"></script>
 
 <style lang="scss" scoped>
-.layout-bar-wrap {
+.layout-line-wrap {
   width: 600px;
   height: 300px;
   border-radius: $large-border-radius;

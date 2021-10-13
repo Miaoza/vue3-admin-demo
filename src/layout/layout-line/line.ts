@@ -41,17 +41,14 @@ import { Map } from '@/interfaces'
       return [
         {
           data: this.chartData.map((item: Map) => item.num),
-          type: 'bar',
-          showBackground: true,
-          backgroundStyle: {
-            color: 'rgba(180, 180, 180, 0.2)'
-          }
+          type: 'line',
+          smooth: true
         }
       ]
     }
   }
 })
-export default class LayoutBar extends Vue {
+export default class LayoutLine extends Vue {
   loading = false
   dialogVisible = false
   filter: Map = {}

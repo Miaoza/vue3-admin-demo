@@ -47,7 +47,6 @@ export default class CusRectChart extends Vue {
   height!: number
 
   async mounted(): Promise<void> {
-    console.log('mounted::::>')
     this.init()
     await this.$nextTick()
     this.chart && this.chart.resize()
