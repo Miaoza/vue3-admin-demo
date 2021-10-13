@@ -1,7 +1,19 @@
 <template>
   <section class="home">
-    <section class="quick-entry"></section>
-
+    <LayoutBar
+      title="产品1"
+      key="test1"
+      chartId="test1"
+      :filterItems="filterItems"
+      :promiseRequest="getProductsSummary"
+    />
+    <LayoutBar
+      title="产品2"
+      key="test2"
+      chartId="test2"
+      :filterItems="filterItems"
+      :promiseRequest="getProductsSummary"
+    />
     <!-- <section></section> -->
   </section>
 </template>
@@ -9,6 +21,8 @@
 
 <style lang="scss" scoped>
 .home {
-  background: $module-bg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
