@@ -20,27 +20,27 @@ export default [
   {
     title: '数据',
     path: '/dashboard',
-    icon: Histogram,
-    children: [
-      {
-        title: '可视化图',
-        path: '/dashboard/chart',
-        children: [
-          {
-            title: '图1',
-            path: '/dashboard/chart/1'
-          },
-          {
-            title: '图2',
-            path: '/dashboard/chart/2'
-          }
-        ]
-      },
-      {
-        title: '表格',
-        path: '/dashboard/table'
-      }
-    ]
+    icon: Histogram
+    // children: [
+    //   {
+    //     title: '可视化图',
+    //     path: '/dashboard/chart',
+    //     children: [
+    //       {
+    //         title: '图1',
+    //         path: '/dashboard/chart/1'
+    //       },
+    //       {
+    //         title: '图2',
+    //         path: '/dashboard/chart/2'
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     title: '表格',
+    //     path: '/dashboard/table'
+    //   }
+    // ]
   },
   {
     title: '设置',

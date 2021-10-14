@@ -6,6 +6,7 @@ import Login from '@/views/login'
 import NotFound from '@/views/404'
 import NoAuth from '@/views/403'
 import users, { userPageRouter } from './user'
+import dashboards from './dashboard'
 import sets from './set'
 
 const routes: Array<RouteRecordRaw> = [
@@ -23,6 +24,7 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       ...users,
+      ...dashboards,
       ...sets
     ]
   },

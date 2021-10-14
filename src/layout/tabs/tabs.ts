@@ -1,4 +1,5 @@
 import { Options, Vue } from 'vue-class-component'
+import { DArrowLeft, DArrowRight } from '@element-plus/icons'
 import { Map } from '@/interfaces'
 import { mutations } from './store'
 import { ClickOutside } from 'element-plus/lib/directives'
@@ -7,7 +8,9 @@ import Contextmenu from './contextmenu'
 
 @Options({
   components: {
-    Contextmenu
+    Contextmenu,
+    DArrowLeft,
+    DArrowRight
   },
   directives: { ClickOutside },
   computed: {

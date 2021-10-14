@@ -1,5 +1,5 @@
 <template>
-  <el-aside class="nav-wrap" :width="isCollapse ? '64px' : '320px'">
+  <el-aside class="nav-wrap" :width="isCollapse ? '64px' : '200px'">
     <el-menu
       :default-active="defaultActive"
       unique-opened
