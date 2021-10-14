@@ -11,17 +11,19 @@ export default class Dashboard extends Vue {
     this.target = ev
   }
   handleDragover(ev: Map): void {
-    console.log('over:::::>', ev)
     ev.preventDefault()
     ev.dataTransfer.dropEffect = 'move'
   }
   handleDrop(ev: Map): void {
     ev.preventDefault()
     const data = ev.dataTransfer.getData('application/drag-node')
-    const isBefore = this.target.y > ev.y
+    const isBefore =
+      Math.abs(this.target.x - ev.x) > 10
+        ? this.target.x > ev.x
+        : this.target.y > ev.y
     const nextNode = isBefore ? ev.target : ev.target.nextSibling
     ev.target.parentNode.insertBefore(document.getElementById(data), nextNode)
-    console.log('drop:::::>', ev)
+    console.log(isBefore, 'drop:::::>', ev)
   }
   handleDragend(ev: Map): void {
     console.log('end::::>>>', ev)

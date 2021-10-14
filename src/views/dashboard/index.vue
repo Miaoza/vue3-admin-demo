@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="dashboard">
     <div
       class="item"
       draggable="true"
@@ -17,3 +17,16 @@
 </template>
 
 <script lang="ts" src="./dashboard.ts"></script>
+
+<style lang="scss" scoped>
+.dashboard {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  .item {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    // margin-right: 8px;
+  }
+}
+</style>
