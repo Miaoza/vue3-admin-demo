@@ -13,8 +13,8 @@ body {
   font-size: 14px;
 }
 #app {
-  min-width: 1440px;
-  min-height: 810px;
+  // min-width: 1440px;
+  // min-height: 810px;
   width: 100vw;
   height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
