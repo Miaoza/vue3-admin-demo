@@ -1,8 +1,14 @@
 import { Options, Vue } from 'vue-class-component'
 import { Map } from '@/interfaces'
 
+let timer: any
+
 @Options({
   props: {
+    direction: {
+      type: String,
+      default: 'vertical' // 【vertical：垂直方向，horizontal：水平方向】
+    },
     sourceData: {
       type: Array,
       default: () => []
@@ -11,8 +17,9 @@ import { Map } from '@/interfaces'
 })
 export default class CusDrag extends Vue {
   target: Map = {}
-  targetIndex = -1
   sourceData!: any[]
+  direction!: string
+
   mounted(): void {
     this.init()
   }
@@ -21,62 +28,96 @@ export default class CusDrag extends Vue {
    * 初始化
    */
   init(): void {
-    // const dom = document.querySelector('.cus-drap-wrap')
-    // const nodes = Array.prototype.slice.call(dom?.children)
-    // nodes.forEach((node) => {
-    //   if (node) {
-    //     node.setAttribute('draggable', true)
-    //     node.ondragstart = this.handleDragstart
-    //     node.ondragover = this.handleDragover
-    //     node.ondrop = this.handleDrop
-    //     node.ondragend = this.handleDragend
-    //     node.ondragenter = this.handleDragenter
-    //   }
-    // })
+    const dom = this.$el.nextElementSibling // document.querySelector('.cus-drap-wrap')
+    console.log(dom)
+    const nodes = Array.prototype.slice.call(dom?.children)
+    nodes.forEach((node) => {
+      if (node) {
+        // node.style.position = 'absolute'
+        node.setAttribute('draggable', 'true')
+        node.ondragstart = this.handleDragstart
+        node.ondragover = this.handleDragover
+        node.ondrop = this.handleDrop
+        node.ondragend = this.handleDragend
+        node.ondragenter = this.handleDragenter
+      }
+    })
+    // this.calculateDom()
+  }
+  // 计算可移动dom位置
+  calculateDom(): void {
+    const dom = document.querySelector('.cus-drap-wrap') as HTMLElement
+    const nodes = Array.prototype.slice.call(dom?.children)
+    const INDEX = ['vertical', 'horizontal'].indexOf(this.direction)
+    const clientWidth = nodes[0]?.clientWidth
+    const clientHeight = nodes[0]?.clientHeight
+    const sumSize = nodes.reduce((sum: number, node: Map) => {
+      node.style.left = `${[0, sum][INDEX]}px`
+      node.style.top = `${[sum, 0][INDEX]}px`
+      sum += node?.[['clientHeight', 'clientWidth'][INDEX]] || 0
+      return sum
+    }, 0)
+    const width = this.direction === 'horizontal' ? sumSize : clientWidth
+    const height = this.direction === 'vertical' ? sumSize : clientHeight
+    dom.style.width = `${width}px`
+    dom.style.height = `${height}px`
   }
 
   /**
    * 拖拽开始
    * @param {Event} ev
    */
-  handleDragstart(ev: Map, index: number): void {
-    console.log('start:::::>', ev)
-    this.targetIndex = index
-    // ev.dataTransfer.setData('application/drag-node', ev.target.id)
-    // ev.dataTransfer.dropEffect = 'move'
-    // this.target = ev
+  handleDragstart(ev: Map): void {
+    ev.dataTransfer.effectAllowed = 'move'
+    this.target = ev
   }
+
   /**
    * 拖拽中
    * @param {Event} ev
    */
   handleDragover(ev: Map): void {
     ev.preventDefault()
-    // ev.dataTransfer.dropEffect = 'move'
+    ev.dataTransfer.dropEffect = 'move'
   }
+
   /**
    * 当拖拽元素进入时调用
    * @param {Event} ev
    */
-  handleDragenter(ev: Map, index: number): void {
-    ev.preventDefault()
+  handleDragenter(ev: Map): void {
     // 避免源对象触发自身的dragenter事件
-    if (this.targetIndex !== index) {
-      const moving = this.sourceData[this.targetIndex]
-      this.sourceData.splice(this.targetIndex, 1)
-      this.sourceData.splice(index, 0, moving)
-      // 排序变化后目标对象的索引变成源对象的索引
-      this.targetIndex = index
-      console.log('handleDragenter:::>', this.targetIndex)
-    }
+    ev.preventDefault()
   }
+
   /**
    * 拖拽结束
    * @param {Event} ev
    */
   handleDragend(ev: Map): void {
     ev.preventDefault()
-    // console.log('end::::>>>', ev)
+  }
+
+  /**
+   * 排序
+   * @param {Event} ev
+   */
+  async sortable(ev: Map): Promise<void> {
+    const node = this.target.target
+    const INDEX = ['vertical', 'horizontal'].indexOf(this.direction)
+    const KEY = ['y', 'x'][INDEX]
+    const isBefore = this.target[KEY] > ev[KEY]
+    const nextNode = isBefore ? ev.target : ev.target.nextSibling
+    if (!node || !ev.target.parentNode) {
+      return
+    }
+    if (!nextNode) {
+      ev.target.parentNode.appendChild(node)
+    } else {
+      ev.target.parentNode.insertBefore(node, nextNode)
+    }
+    // await this.$nextTick()
+    // this.calculateDom()
   }
   /**
    * 释放目标
@@ -84,12 +125,9 @@ export default class CusDrag extends Vue {
    */
   handleDrop(ev: Map): void {
     ev.preventDefault()
-    const data = ev.dataTransfer.getData('application/drag-node')
-    const isBefore =
-      Math.abs(this.target.x - ev.x) > 10
-        ? this.target.x > ev.x
-        : this.target.y > ev.y
-    const nextNode = isBefore ? ev.target : ev.target.nextSibling
-    ev.target.parentNode.insertBefore(document.getElementById(data), nextNode)
+    timer && clearTimeout(timer)
+    timer = setTimeout(() => {
+      this.sortable(ev)
+    }, 50)
   }
 }

@@ -2,7 +2,7 @@
 <template>
   <section class="tabs">
     <div
-      class="home"
+      :class="['home', '/home' === currentTab.path && 'active']"
       @click.stop="handleToggle({ path: '/home', title: '工作台' })"
     >
       <i class="el-icon-house"> </i>

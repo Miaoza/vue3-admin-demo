@@ -59,6 +59,7 @@ class Tabs extends Vue {
         icon: this.$route.meta.icon
       })
   }
+
   /**
    * 切换 tab 选项卡
    * @param {Object} tab
