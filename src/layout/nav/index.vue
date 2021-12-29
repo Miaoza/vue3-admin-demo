@@ -5,6 +5,7 @@
       unique-opened
       router
       :collapse="isCollapse"
+      collapse-transition
     >
       <template v-for="item in menus" :key="item.path">
         <template v-if="item.children && item.children.length">
@@ -28,7 +29,9 @@
 
 <style lang="scss" scoped>
 .nav-wrap {
-  background: #fff;
+  background: transparent;
+  transition: width 0.2s;
+
   .el-menu {
     height: 100%;
     .el-icon {

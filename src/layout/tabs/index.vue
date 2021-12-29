@@ -80,6 +80,9 @@
     line-height: 36px;
     width: 36px;
     text-align: center;
+    &.active {
+      background: #edf5fe;
+    }
   }
   .tabs-wrap {
     flex: 1;

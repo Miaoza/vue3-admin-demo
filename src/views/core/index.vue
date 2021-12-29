@@ -21,15 +21,24 @@
 .core-wrap {
   // min-width: 1440px;
   // min-height: 810px;
-  min-width: 1280px;
-  min-height: 720;
+  // min-width: 1280px;
+  // min-height: 720;
   width: 100vw;
   height: 100vh;
+  // :deep {
+  //   .main-header {
+  //     min-width: 1280px;
+  //   }
+  // }
   .core-main {
     background: $page-bg;
     position: relative;
     height: calc(100vh - 60px);
-    overflow-y: auto;
+    overflow: auto;
+    & > * {
+      min-width: 1280px;
+      min-height: 720;
+    }
   }
 }
 </style>

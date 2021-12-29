@@ -25,7 +25,7 @@ const Nav = defineComponent({
   mounted() {
     window.onresize = () => {
       const bodyWidth = document.body.clientWidth
-      this.isCollapse = bodyWidth < 1200
+      this.isCollapse = bodyWidth < 1000
     }
   }
   // methods: {

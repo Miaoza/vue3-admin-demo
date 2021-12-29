@@ -24,7 +24,7 @@ export default function (): Map {
       }
     },
     methods: {
-      setOption() {}
+      // setOption(): void {}
     }
   }
 }
