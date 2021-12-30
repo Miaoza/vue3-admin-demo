@@ -19,5 +19,23 @@ export default [
       title: '用户设置',
       icon: ''
     }
+  },
+  {
+    path: '/set/user1',
+    name: 'set/user1',
+    component: SetUser,
+    meta: {
+      title: '用户设置1',
+      icon: ''
+    }
+  },
+  {
+    path: '/set/user2',
+    name: 'set/user2',
+    component: SetUser,
+    meta: {
+      title: '用户设置2',
+      icon: ''
+    }
   }
 ] as any[]

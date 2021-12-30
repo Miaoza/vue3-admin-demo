@@ -136,5 +136,25 @@ class Tabs extends Vue {
     }
     this.show = false
   }
+
+  handleScrollRight(): void {
+    const dom = document.querySelector('.tabs-wrap') as HTMLElement
+    const clientWidth = dom?.clientWidth
+    const scrollLeft = dom?.scrollLeft
+    const scrollWidth = dom?.scrollWidth
+    if (scrollLeft + clientWidth < scrollWidth) {
+      const left = Math.min(scrollLeft + 160, scrollWidth)
+      dom.scrollTo({ left, behavior: 'smooth' })
+    }
+  }
+
+  handleScrollLeft(): void {
+    const dom = document.querySelector('.tabs-wrap') as HTMLElement
+    const scrollLeft = dom?.scrollLeft
+    if (scrollLeft > 0) {
+      const left = Math.max(scrollLeft - 160, 0)
+      dom.scrollTo({ left, behavior: 'smooth' })
+    }
+  }
 }
 export default Tabs

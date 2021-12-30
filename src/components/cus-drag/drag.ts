@@ -68,6 +68,7 @@ export default class CusDrag extends Vue {
    * @param {Event} ev
    */
   handleDragstart(ev: Map): void {
+    console.log(ev)
     ev.dataTransfer.effectAllowed = 'move'
     this.target = ev
   }

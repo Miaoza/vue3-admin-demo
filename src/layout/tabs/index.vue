@@ -7,7 +7,7 @@
     >
       <i class="el-icon-house"> </i>
     </div>
-    <el-button type="text">
+    <el-button type="text" @click="handleScrollLeft">
       <el-icon size="18">
         <d-arrow-left />
       </el-icon>
@@ -59,7 +59,7 @@
         @close="handleCloseTab"
       />
     </section>
-    <el-button type="text">
+    <el-button type="text" @click="handleScrollRight">
       <el-icon size="18">
         <d-arrow-right />
       </el-icon>
@@ -78,9 +78,10 @@
   height: 36px;
   display: flex;
   align-items: center;
-  background: #fff;
+  background: $module-bg;
+
   .home {
-    border: 1px solid #e0e0e0;
+    border: 1px solid $boder-color;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom: 0;
@@ -90,12 +91,12 @@
     width: 36px;
     text-align: center;
     &.active {
-      background: #edf5fe;
+      background: $page-bg;
     }
   }
   .tabs-wrap {
     flex: 1;
-    border: 1px solid #e0e0e0;
+    border: 1px solid $boder-color;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     border-bottom: 0;
@@ -105,6 +106,7 @@
     overflow: hidden;
     display: flex;
     align-items: center;
+    transition: all 0.5s;
     .tab-item {
       position: relative;
       box-sizing: border-box;
@@ -121,13 +123,16 @@
         &.active {
           border-top-right-radius: 12px;
           border-top-left-radius: 12px;
-          background: #edf5fe;
+          background: $page-bg;
         }
 
         .title {
           width: 90px;
         }
 
+        .el-icon-close:hover {
+          background: $info-bg;
+        }
         .el-icon-close,
         .el-icon-circle-close {
           cursor: pointer;

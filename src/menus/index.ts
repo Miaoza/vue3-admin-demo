@@ -54,6 +54,14 @@ export default [
       {
         title: '用户属性',
         path: '/set/user'
+      },
+      {
+        title: '用户属性1',
+        path: '/set/user1'
+      },
+      {
+        title: '用户属性2',
+        path: '/set/user2'
       }
     ]
   }
