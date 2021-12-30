@@ -13,15 +13,20 @@
     >
       测试模块{{ n }}
     </div> -->
-    <CusDrag key="test" direction="horizontal">
-      <div
+    <CusDrag direction="horizontal" :sourceData="[1, 2, 3, 4, 5, 6]">
+      <!-- <div
         class="item"
         v-for="n in [1, 2, 3, 4, 5]"
         :id="`drag--${n}`"
         :key="n"
       >
         测试模块{{ n }}
-      </div>
+      </div> -->
+      <template v-slot="{ scope }">
+        <div class="item">
+          {{ scope.row }}
+        </div>
+      </template>
     </CusDrag>
   </section>
 </template>

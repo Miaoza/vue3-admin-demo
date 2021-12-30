@@ -1,15 +1,15 @@
 <!-- 拖放组件 -->
 <template>
   <!-- <section class="cus-drap-wrap"> -->
-  <transition-group
+  <!-- <transition-group
     name="drag"
     :class="['cus-drap-wrap', direction]"
     tag="section"
   >
     <slot></slot>
-  </transition-group>
+  </transition-group> -->
   <!-- </section> -->
-  <!-- <transition-group
+  <transition-group
     name="drag"
     :class="['cus-drap-wrap', direction]"
     tag="section"
@@ -19,15 +19,17 @@
       draggable="true"
       v-for="(item, index) in sourceData"
       :key="index"
-      :id="`item` + index"
+      :id="`drag-item` + index"
       @dragstart="handleDragstart"
       @dragover="handleDragover"
       @dragenter="handleDragenter"
       @drop="handleDrop"
+      @ondragend="handleDragend"
     >
-      {{ item }}
+      <!-- {{ item }} -->
+      <slot :scope="{ row: item, $index: index }">{{ item }}</slot>
     </div>
-  </transition-group> -->
+  </transition-group>
 </template>
 
 <script lang="ts" src="./drag.ts"></script>
@@ -48,14 +50,14 @@
   &.vertical {
     flex-direction: column;
   }
-  // .drag-item {
-  //   box-sizing: border-box;
-  //   position: absolute;
-  //   width: 200px;
-  //   border: 1px solid #ccc;
-  //   padding: 5px 20px;
-  //   font-size: 14px;
-  //   text-align: center;
-  // }
+  .drag-item {
+    box-sizing: border-box;
+    //   position: absolute;
+    //   width: 200px;
+    //   border: 1px solid #ccc;
+    //   padding: 5px 20px;
+    //   font-size: 14px;
+    //   text-align: center;
+  }
 }
 </style>

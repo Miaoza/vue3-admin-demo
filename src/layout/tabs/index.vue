@@ -13,36 +13,45 @@
       </el-icon>
     </el-button>
     <section class="tabs-wrap" v-click-outside="handleOutSide">
-      <div
-        v-for="(tab, index) in tabs"
-        :class="['tab-item', tab.path === currentTab.path && 'active']"
-        :key="`${tab.path}-${index}`"
-        @click.stop="handleToggle(tab)"
-        @contextmenu.prevent="handleContextmenu(index)"
-      >
-        <div
-          :class="['tab-item-wrap', tab.path === currentTab.path && 'active']"
-        >
-          <img v-if="tab.icon" class="icon" :src="tab.icon" />
-          <span class="title">{{ tab.title }}</span>
-          <div v-if="tab.path !== '/home'">
-            <i
-              class="el-icon-close"
-              v-show="tab.path !== currentTab.path"
-              @click.stop="handleClose(tab)"
-            ></i>
-            <i
-              class="el-icon-circle-close"
-              v-show="tab.path === currentTab.path"
-              @click.stop="handleClose(tab)"
-            ></i>
+      <CusDrag direction="horizontal" :sourceData="tabs">
+        <template v-slot="{ scope }">
+          <div
+            :class="[
+              'tab-item',
+              scope.row.path === currentTab.path && 'active'
+            ]"
+            :key="`${scope.row.path}-${scope.$index}`"
+            @click.stop="handleToggle(scope.row)"
+            @contextmenu.prevent="handleContextmenu(scope.$index)"
+          >
+            <div
+              :class="[
+                'tab-item-wrap',
+                scope.row.path === currentTab.path && 'active'
+              ]"
+            >
+              <img v-if="scope.row.icon" class="icon" :src="scope.row.icon" />
+              <span class="title">{{ scope.row.title }}</span>
+              <div v-if="scope.row.path !== '/home'">
+                <i
+                  class="el-icon-close"
+                  v-show="scope.row.path !== currentTab.path"
+                  @click.stop="handleClose(scope.row)"
+                ></i>
+                <i
+                  class="el-icon-circle-close"
+                  v-show="scope.row.path === currentTab.path"
+                  @click.stop="handleClose(scope.row)"
+                ></i>
+              </div>
+            </div>
+            <!-- <el-divider
+              v-if="scope.$index + 1 < tabs.length"
+              direction="vertical"
+            ></el-divider> -->
           </div>
-        </div>
-        <el-divider
-          v-if="index + 1 < tabs.length"
-          direction="vertical"
-        ></el-divider>
-      </div>
+        </template>
+      </CusDrag>
 
       <Contextmenu
         :show="show"

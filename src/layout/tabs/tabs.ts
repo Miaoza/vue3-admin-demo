@@ -4,13 +4,15 @@ import { Map } from '@/interfaces'
 import { mutations } from './store'
 import { ClickOutside } from 'element-plus/lib/directives'
 import Contextmenu from './contextmenu'
+import CusDrag from '@/components/cus-drag'
 // import { onMounted } from 'vue'
 
 @Options({
   components: {
     Contextmenu,
     DArrowLeft,
-    DArrowRight
+    DArrowRight,
+    CusDrag
   },
   directives: { ClickOutside },
   computed: {

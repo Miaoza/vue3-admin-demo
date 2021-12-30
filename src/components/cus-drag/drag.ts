@@ -28,40 +28,40 @@ export default class CusDrag extends Vue {
    * 初始化
    */
   init(): void {
-    const dom = this.$el.nextElementSibling // document.querySelector('.cus-drap-wrap')
-    console.log(dom)
-    const nodes = Array.prototype.slice.call(dom?.children)
-    nodes.forEach((node) => {
-      if (node) {
-        // node.style.position = 'absolute'
-        node.setAttribute('draggable', 'true')
-        node.ondragstart = this.handleDragstart
-        node.ondragover = this.handleDragover
-        node.ondrop = this.handleDrop
-        node.ondragend = this.handleDragend
-        node.ondragenter = this.handleDragenter
-      }
-    })
+    // const dom = this.$el.nextElementSibling // document.querySelector('.cus-drap-wrap')
+    // console.log(dom)
+    // const nodes = Array.prototype.slice.call(dom?.children)
+    // nodes.forEach((node) => {
+    //   if (node) {
+    //     // node.style.position = 'absolute'
+    //     node.setAttribute('draggable', 'true')
+    //     node.ondragstart = this.handleDragstart
+    //     node.ondragover = this.handleDragover
+    //     node.ondrop = this.handleDrop
+    //     node.ondragend = this.handleDragend
+    //     node.ondragenter = this.handleDragenter
+    //   }
+    // })
     // this.calculateDom()
   }
   // 计算可移动dom位置
-  calculateDom(): void {
-    const dom = document.querySelector('.cus-drap-wrap') as HTMLElement
-    const nodes = Array.prototype.slice.call(dom?.children)
-    const INDEX = ['vertical', 'horizontal'].indexOf(this.direction)
-    const clientWidth = nodes[0]?.clientWidth
-    const clientHeight = nodes[0]?.clientHeight
-    const sumSize = nodes.reduce((sum: number, node: Map) => {
-      node.style.left = `${[0, sum][INDEX]}px`
-      node.style.top = `${[sum, 0][INDEX]}px`
-      sum += node?.[['clientHeight', 'clientWidth'][INDEX]] || 0
-      return sum
-    }, 0)
-    const width = this.direction === 'horizontal' ? sumSize : clientWidth
-    const height = this.direction === 'vertical' ? sumSize : clientHeight
-    dom.style.width = `${width}px`
-    dom.style.height = `${height}px`
-  }
+  // calculateDom(): void {
+  //   const dom = document.querySelector('.cus-drap-wrap') as HTMLElement
+  //   const nodes = Array.prototype.slice.call(dom?.children)
+  //   const INDEX = ['vertical', 'horizontal'].indexOf(this.direction)
+  //   const clientWidth = nodes[0]?.clientWidth
+  //   const clientHeight = nodes[0]?.clientHeight
+  //   const sumSize = nodes.reduce((sum: number, node: Map) => {
+  //     node.style.left = `${[0, sum][INDEX]}px`
+  //     node.style.top = `${[sum, 0][INDEX]}px`
+  //     sum += node?.[['clientHeight', 'clientWidth'][INDEX]] || 0
+  //     return sum
+  //   }, 0)
+  //   const width = this.direction === 'horizontal' ? sumSize : clientWidth
+  //   const height = this.direction === 'vertical' ? sumSize : clientHeight
+  //   dom.style.width = `${width}px`
+  //   dom.style.height = `${height}px`
+  // }
 
   /**
    * 拖拽开始
@@ -96,6 +96,7 @@ export default class CusDrag extends Vue {
    */
   handleDragend(ev: Map): void {
     ev.preventDefault()
+    this.target = {}
   }
 
   /**
@@ -107,14 +108,15 @@ export default class CusDrag extends Vue {
     const INDEX = ['vertical', 'horizontal'].indexOf(this.direction)
     const KEY = ['y', 'x'][INDEX]
     const isBefore = this.target[KEY] > ev[KEY]
-    const nextNode = isBefore ? ev.target : ev.target.nextSibling
-    if (!node || !ev.target.parentNode) {
+    const target = ev.path.find((node: Map) => node.draggable)
+    const nextNode = isBefore ? target : target.nextSibling
+    if (!node || !target.parentNode) {
       return
     }
     if (!nextNode) {
-      ev.target.parentNode.appendChild(node)
+      target.parentNode.appendChild(node)
     } else {
-      ev.target.parentNode.insertBefore(node, nextNode)
+      target.parentNode.insertBefore(node, nextNode)
     }
     // await this.$nextTick()
     // this.calculateDom()
